@@ -1,12 +1,16 @@
 # Simple QR Code Generator
 
 **Contributors:** elmehdimouhajer
-**Tags:** qr code, generator, simple, wordpress, wordpress-plugin
-**Requires at least:** 5.0  
+**Tags:** qr code, generator, simple
+**Requires at least:** 5.0
 **Tested up to:** 6.6.1
 **Stable tag:** 1.0.1
 **License:** GPLv2 or later
 **License URI:** http://www.gnu.org/licenses/gpl-2.0.html
+
+## Short Description
+
+A simple WordPress plugin to generate QR codes for your posts and pages using QR Code Monkey API.
 
 ## Description
 
@@ -34,11 +38,9 @@ Yes, you can customize the size of the QR code from the plugin settings page.
 ## Changelog
 
 ### 1.0.1
-
 * Fixed performance and security issues.
 
 ### 1.0.0
-
 * Initial release.
 
 ## License
