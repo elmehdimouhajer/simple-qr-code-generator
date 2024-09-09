@@ -214,24 +214,28 @@ class Simple_Qr_Code_Generator_Admin {
     public function generate_qr_code(): void
     {
         check_ajax_referer('simple_qr_code_generator_nonce', 'nonce');
-
+        $options = get_option('simple_qr_code_generator_options');
         $post_id = intval($_POST['post_id']);
         $post_url = get_permalink($post_id);
-
+        $qr_size = esc_attr($options['qr_size'] ?? 300);
+        $logo_url = esc_url($options['logo_url'] ?? '');
         error_log("Generating QR code for post ID: $post_id, URL: $post_url");
-
+        error_log("QR code size: $qr_size, Logo URL: $logo_url");
         $api = new Simple_Qr_Code_Generator_API();
         $qr_data = [
             'data' => $post_url,
             'config' => [
-                'logoMode' => 'default'
+                'logoMode' => 'clean',
+                'body' => 'circle',
+                'logo' => "$logo_url",
             ],
-            'size' => 300,
+            'size' => $qr_size,
             'download' => false,
             'file' => 'png'
         ];
 
-        $qr_code = $api->generate_qr_code($qr_data);
+        // Ensure both arguments are passed
+        $qr_code = $api->generate_qr_code($qr_data, $post_id);
 
         if (!empty($qr_code['imageUrl'])) {
             $qr_code_url = Simple_Qr_Code_Generator_Helpers::upload_image_to_media_library($qr_code['imageUrl'], $post_id);

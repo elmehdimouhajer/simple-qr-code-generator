@@ -1,58 +1,43 @@
 # Simple QR Code Generator
 
-A simple WordPress plugin to generate QR codes for your posts and pages using QR Code Monkey API.
+A WordPress plugin to generate QR codes for posts and pages.
 
-## Description
+## Features
 
-The Simple QR Code Generator plugin allows you to easily generate QR codes for your WordPress posts and pages. The QR
-codes can be customized with a logo and size.
+- Generate QR codes for posts and pages.
+- Download and regenerate QR codes.
+- Customize QR code size and logo.
 
 ## Installation
 
-1. Upload the plugin files to the `/wp-content/plugins/simple-qr-code-generator` directory, or install the plugin
-   through the WordPress plugins screen directly.
-2. Activate the plugin through the 'Plugins' screen in WordPress.
-3. Use the Settings->QR Code Settings screen to configure the plugin.
+1. Download the plugin zip file.
+2. Go to the WordPress admin dashboard.
+3. Navigate to `Plugins > Add New`.
+4. Click on `Upload Plugin` and select the downloaded zip file.
+5. Click `Install Now` and then `Activate`.
 
 ## Usage
 
-1. After activation, a new meta box will appear on the post edit screen.
-2. Enter the URL you want to generate a QR code for in the meta box.
-3. Save the post to generate and display the QR code.
+1. Go to the post or page editor.
+2. In the sidebar, find the `QR Code` meta box.
+3. Click `Generate QR Code` to create a QR code for the post or page.
+4. The generated QR code will be displayed in the meta box.
+5. Click `Download QR Code` to save the QR code image.
 
-## Files
+## Localization
 
-### Main Plugin File: `simple-qr-code-generator.php`
+The plugin supports localization. To add translations, create a `.po` file for your language and place it in
+the `languages` directory.
 
-This file contains the main information about the plugin and registers all components necessary to run the plugin.
+## Development
 
-### Admin Class File: `admin/class-simple-qr-code-generator-admin.php`
+### Prerequisites
 
-This file handles the admin functionality of the plugin, including adding meta boxes and saving meta box data.
+- PHP
+- Composer
 
-### Core Class File: `core/class-simple-qr-code-generator.php`
+### Setup
 
-This file contains the core functionality of the plugin.
+1. Clone the repository.
+2. Run `composer install` to install PHP dependencies.
 
-### JavaScript File: `admin/js/admin.js`
-
-This file contains JavaScript code to handle the media uploader for the logo.
-
-### Settings Page: `admin/views/settings-page.php`
-
-This file contains the HTML for the plugin's settings page.
-
-## Changelog
-
-### 1.0.0
-
-* Initial release.
-
-## License
-
-This plugin is licensed under the GPLv2. See the [LICENSE](https://www.gnu.org/licenses/gpl-2.0.html) file for more
-details.
-
-## Author
-
-* **El Mehdi Mouhajer** - [LinkedIn](https://linkedin.com/in/elmehdimouhajer)
