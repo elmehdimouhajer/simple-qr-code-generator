@@ -10,7 +10,7 @@
  * @wordpress-plugin
  * Plugin Name:   Simple QR Code Generator
  * Plugin URI:    https://github.com/elmehdimouhajer/simpleQrCodeGenrerator
- * Description:   A simple plugin to generate QR codes for your posts and pages using QR Code Monkey API.
+ * Description:   A simple WordPress plugin to generate QR codes for your posts and pages using QR Code Monkey API.
  * Version:       1.0.0
  * Author:        El Mehdi Mouhajer
  * Author URI:    https://linkedin.com/in/elmehdimouhajer
