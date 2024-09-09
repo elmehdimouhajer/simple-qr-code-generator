@@ -36,8 +36,8 @@ class Simple_Qr_Code_Generator_Admin {
     public function add_plugin_admin_menu(): void
     {
         add_menu_page(
-            __('Simple QR Code Generator', 'simple-qr-code-generator'),
-            __('QR Code Generator', 'simple-qr-code-generator'),
+            esc_html__('Simple QR Code Generator', 'simple-qr-code-generator'),
+            esc_html__('QR Code Generator', 'simple-qr-code-generator'),
             'manage_options',
             'simple-qr-code-generator',
             array( $this, 'display_plugin_admin_page' ),
@@ -56,14 +56,14 @@ class Simple_Qr_Code_Generator_Admin {
 
         add_settings_section(
             'simple_qr_code_generator_section',
-            __('Base Settings', 'simple-qr-code-generator'),
+            esc_html__('Base Settings', 'simple-qr-code-generator'),
             null,
             'simple-qr-code-generator'
         );
 
         add_settings_field(
             'logo_url',
-            __('Logo URL', 'simple-qr-code-generator'),
+            esc_html__('Logo URL', 'simple-qr-code-generator'),
             array($this, 'logo_url_callback'),
             'simple-qr-code-generator',
             'simple_qr_code_generator_section'
@@ -71,7 +71,7 @@ class Simple_Qr_Code_Generator_Admin {
 
         add_settings_field(
             'qr_size',
-            __('Size', 'simple-qr-code-generator'),
+            esc_html__('Size', 'simple-qr-code-generator'),
             array($this, 'qr_size_callback'),
             'simple-qr-code-generator',
             'simple_qr_code_generator_section'
@@ -104,7 +104,7 @@ class Simple_Qr_Code_Generator_Admin {
     {
         add_meta_box(
             'simple_qr_code_generator_meta_box',
-            __('QR Code', 'simple-qr-code-generator'),
+            esc_html__('QR Code', 'simple-qr-code-generator'),
             array($this, 'meta_box_callback'),
             'post',
             'side',
@@ -124,13 +124,13 @@ class Simple_Qr_Code_Generator_Admin {
         $qr_code_image = get_post_meta($post->ID, '_simple_qr_code_image', true);
 
         if ($post->post_status !== 'publish') {
-            echo '<p>' . __('Please publish the post to generate a QR code.', 'simple-qr-code-generator') . '</p>';
+            echo '<p>' . esc_html__('Please publish the post to generate a QR code.', 'simple-qr-code-generator') . '</p>';
         } else {
             if ($qr_code_image) {
                 echo '<div><img src="' . esc_url($qr_code_image) . '" alt="QR Code" style="max-width:100%;" /></div>';
-                echo '<a href="' . esc_url($qr_code_image) . '" download="qr-code.png">' . __('Download QR Code', 'simple-qr-code-generator') . '</a>';
+                echo '<a href="' . esc_url($qr_code_image) . '" download="qr-code.png">' . esc_html__('Download QR Code', 'simple-qr-code-generator') . '</a>';
             } else {
-                echo '<button type="button" id="generate_qr_code_button" class="button">' . __('Generate QR Code', 'simple-qr-code-generator') . '</button>';
+                echo '<button type="button" id="generate_qr_code_button" class="button">' . esc_html__('Generate QR Code', 'simple-qr-code-generator') . '</button>';
                 echo '<div id="qr_code_preview"></div>';
             }
         }
@@ -141,39 +141,30 @@ class Simple_Qr_Code_Generator_Admin {
      *
      * @since 1.0.0
      */
-    /**
-     * Save meta box data.
-     *
-     * @since 1.0.0
-     */
     public function save_meta_box_data($post_id)
     {
+        // Check if nonce is set
         if (!isset($_POST['simple_qr_code_generator_meta_box_nonce'])) {
             return;
         }
-        if (!wp_verify_nonce($_POST['simple_qr_code_generator_meta_box_nonce'], 'simple_qr_code_generator_save_meta_box_data')) {
+
+        // Verify the nonce
+        $nonce = sanitize_text_field(wp_unslash($_POST['simple_qr_code_generator_meta_box_nonce']));
+        if (!wp_verify_nonce($nonce, 'simple_qr_code_generator_save_meta_box_data')) {
             return;
-        }
-        if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) {
-            return;
-        }
-        if (isset($_POST['post_type']) && 'page' == $_POST['post_type']) {
-            if (!current_user_can('edit_page', $post_id)) {
-                return;
-            }
-        } else {
-            if (!current_user_can('edit_post', $post_id)) {
-                return;
-            }
         }
 
+        // Check if the field is set
         if (isset($_POST['simple_qr_code_generator_field'])) {
-            $field_value = sanitize_text_field($_POST['simple_qr_code_generator_field']);
-        } else {
-            $field_value = ''; // or any default value you prefer
+            $field_value = sanitize_text_field(wp_unslash($_POST['simple_qr_code_generator_field']));
+            update_post_meta($post_id, '_simple_qr_code_generator_meta_key', $field_value);
         }
 
-        update_post_meta($post_id, '_simple_qr_code_generator_meta_key', $field_value);
+        // Validate the post_id
+        if (isset($_POST['post_id']) && !empty($_POST['post_id'])) {
+            $post_id = intval($_POST['post_id']);
+            // Further processing with $post_id
+        }
     }
 
     /**
@@ -185,11 +176,11 @@ class Simple_Qr_Code_Generator_Admin {
     {
         $options = get_option( 'simple_qr_code_generator_options' );
         $logo_url = esc_attr( $options['logo_url'] ?? '' );
-        echo '<input type="text" id="logo_url" name="simple_qr_code_generator_options[logo_url]" value="' . $logo_url . '" />';
-        echo '<button type="button" class="button" id="upload_logo_button">' . __( 'Upload Logo', 'simple-qr-code-generator' ) . '</button>';
+        echo '<input type="text" id="logo_url" name="simple_qr_code_generator_options[logo_url]" value="' . esc_attr($logo_url) . '" />';
+        echo '<button type="button" class="button" id="upload_logo_button">' . esc_html__('Upload Logo', 'simple-qr-code-generator') . '</button>';
         echo '<div id="logo_preview" style="margin-top:10px;">';
         if ( $logo_url ) {
-            echo '<img src="' . $logo_url . '" style="max-width:100px;" />';
+            echo '<img src="' . esc_url($logo_url) . '" style="max-width:100px;" />';
         }
         echo '</div>';
     }
@@ -203,9 +194,10 @@ class Simple_Qr_Code_Generator_Admin {
     {
         $options = get_option('simple_qr_code_generator_options');
         $qr_size = esc_attr($options['qr_size'] ?? '');
-        echo '<input type="text" id="qr_size" name="simple_qr_code_generator_options[qr_size]" value="' . $qr_size . '" />';
-        echo '<p class="description">' . __('Enter the size of the QR code in pixels.', 'simple-qr-code-generator') . '</p>';
+        echo '<input type="text" id="qr_size" name="simple_qr_code_generator_options[qr_size]" value="' . esc_attr($qr_size) . '" />';
+        echo '<p class="description">' . esc_html__('Enter the size of the QR code in pixels.', 'simple-qr-code-generator') . '</p>';
     }
+
     /**
      * Generate QR code via AJAX.
      *
@@ -215,12 +207,14 @@ class Simple_Qr_Code_Generator_Admin {
     {
         check_ajax_referer('simple_qr_code_generator_nonce', 'nonce');
         $options = get_option('simple_qr_code_generator_options');
-        $post_id = intval($_POST['post_id']);
-        $post_url = get_permalink($post_id);
+        if (isset($_POST['post_id']) && !empty($_POST['post_id'])) {
+            $post_id = intval($_POST['post_id']);
+            $post_url = get_permalink($post_id);
+        } else {
+            wp_send_json_error('Invalid post ID.');
+        }
         $qr_size = esc_attr($options['qr_size'] ?? 300);
         $logo_url = esc_url($options['logo_url'] ?? '');
-        error_log("Generating QR code for post ID: $post_id, URL: $post_url");
-        error_log("QR code size: $qr_size, Logo URL: $logo_url");
         $api = new Simple_Qr_Code_Generator_API();
         $qr_data = [
             'data' => $post_url,
@@ -247,6 +241,7 @@ class Simple_Qr_Code_Generator_Admin {
             wp_send_json_error('QR code generation failed.');
         }
     }
+
     /**
      * Enqueue media uploader scripts.
      *
@@ -259,8 +254,8 @@ class Simple_Qr_Code_Generator_Admin {
         wp_localize_script('simple-qr-code-generator-admin', 'SimpleQrCodeGenerator', array(
             'ajax_url' => admin_url('admin-ajax.php'),
             'nonce' => wp_create_nonce('simple_qr_code_generator_nonce'),
-            'download_text' => __('Download QR Code', 'simple-qr-code-generator'),
-            'regenerate_text' => __('Regenerate QR Code', 'simple-qr-code-generator')
+            'download_text' => esc_html__('Download QR Code', 'simple-qr-code-generator'),
+            'regenerate_text' => esc_html__('Regenerate QR Code', 'simple-qr-code-generator')
         ));
     }
 
@@ -272,7 +267,7 @@ class Simple_Qr_Code_Generator_Admin {
     public function display_plugin_admin_page(): void
     {
         if ( ! current_user_can( 'manage_options' ) ) {
-            wp_die( __( 'Sorry, you are not allowed to access this page.', 'simple-qr-code-generator' ) );
+            wp_die(esc_html__('Sorry, you are not allowed to access this page.', 'simple-qr-code-generator'));
         }
         include_once( SIMPLEQRCO_PLUGIN_DIR . 'admin/views/settings-page.php' );
     }

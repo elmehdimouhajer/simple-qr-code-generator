@@ -5,13 +5,13 @@
  * @package       SIMPLEQRCO
  * @author        El Mehdi Mouhajer
  * @license       gplv2
- * @version       1.0.0
+ * @version       1.0.1
  *
  * @wordpress-plugin
  * Plugin Name:   Simple QR Code Generator
  * Plugin URI:    https://github.com/elmehdimouhajer/simpleQrCodeGenrerator
  * Description:   A simple WordPress plugin to generate QR codes for your posts and pages using QR Code Monkey API.
- * Version:       1.0.0
+ * Version:       1.0.1
  * Author:        El Mehdi Mouhajer
  * Author URI:    https://linkedin.com/in/elmehdimouhajer
  * Text Domain:   simple-qr-code-generator
@@ -47,7 +47,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 define( 'SIMPLEQRCO_NAME',			'Simple QR Code Generator' );
 
 // Plugin version
-define( 'SIMPLEQRCO_VERSION',		'1.0.0' );
+define('SIMPLEQRCO_VERSION', '1.0.1');
 
 // Plugin Root File
 define( 'SIMPLEQRCO_PLUGIN_FILE',	__FILE__ );

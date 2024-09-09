@@ -23,13 +23,15 @@ class Simple_Qr_Code_Generator_Helpers
         }
 
         $upload_dir = wp_upload_dir();
-        $context = stream_context_create([
-            'ssl' => [
-                'verify_peer' => false,
-                'verify_peer_name' => false,
-            ],
-        ]);
-        $image_data = file_get_contents($image_url, false, $context);
+        $response = wp_remote_get($image_url, array(
+            'sslverify' => false,
+        ));
+
+        if (is_wp_error($response)) {
+            return $response;
+        }
+
+        $image_data = wp_remote_retrieve_body($response);
         $filename = basename($image_url);
 
         if (wp_mkdir_p($upload_dir['path'])) {
@@ -38,7 +40,15 @@ class Simple_Qr_Code_Generator_Helpers
             $file = $upload_dir['basedir'] . '/' . $filename;
         }
 
-        file_put_contents($file, $image_data);
+        global $wp_filesystem;
+        if (!function_exists('WP_Filesystem')) {
+            require_once ABSPATH . 'wp-admin/includes/file.php';
+        }
+        WP_Filesystem();
+
+        if (!$wp_filesystem->put_contents($file, $image_data, FS_CHMOD_FILE)) {
+            return new WP_Error('file_write_error', 'Failed to write file.');
+        }
 
         $wp_filetype = wp_check_filetype($filename, null);
         $attachment = array(

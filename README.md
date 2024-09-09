@@ -1,43 +1,47 @@
 # Simple QR Code Generator
 
-A WordPress plugin to generate QR codes for posts and pages.
+**Contributors:** elmehdimouhajer
+**Tags:** qr code, generator, simple, wordpress, wordpress-plugin
+**Requires at least:** 5.0  
+**Tested up to:** 6.6.1
+**Stable tag:** 1.0.1
+**License:** GPLv2 or later
+**License URI:** http://www.gnu.org/licenses/gpl-2.0.html
 
-## Features
+## Description
 
-- Generate QR codes for posts and pages.
-- Download and regenerate QR codes.
-- Customize QR code size and logo.
+Simple QR Code Generator is a WordPress plugin that allows you to generate QR codes for your posts and pages. This
+plugin provides an easy-to-use interface for creating QR codes and embedding them into your content.
 
 ## Installation
 
-1. Download the plugin zip file.
-2. Go to the WordPress admin dashboard.
-3. Navigate to `Plugins > Add New`.
-4. Click on `Upload Plugin` and select the downloaded zip file.
-5. Click `Install Now` and then `Activate`.
+1. Upload the plugin files to the `/wp-content/plugins/simple-qr-code-generator` directory, or install the plugin
+   through the WordPress plugins screen directly.
+2. Activate the plugin through the 'Plugins' screen in WordPress.
+3. Use the Settings->Simple QR Code Generator screen to configure the plugin.
 
-## Usage
+## Frequently Asked Questions
 
-1. Go to the post or page editor.
-2. In the sidebar, find the `QR Code` meta box.
-3. Click `Generate QR Code` to create a QR code for the post or page.
-4. The generated QR code will be displayed in the meta box.
-5. Click `Download QR Code` to save the QR code image.
+### How do I generate a QR code?
 
-## Localization
+After activating the plugin, go to the post or page where you want to generate a QR code. You will find a meta box on
+the right side of the editor where you can generate and view the QR code.
 
-The plugin supports localization. To add translations, create a `.po` file for your language and place it in
-the `languages` directory.
+### Can I customize the size of the QR code?
 
-## Development
+Yes, you can customize the size of the QR code from the plugin settings page.
 
-### Prerequisites
+## Changelog
 
-- PHP
-- Composer
+### 1.0.1
 
-### Setup
+* Fixed performance and security issues.
 
-1. Clone the repository.
-2. Run `composer install` to install PHP dependencies.
+### 1.0.0
 
+* Initial release.
+
+## License
+
+This plugin is licensed under the GPLv2 or later. You can find the full license text
+at [http://www.gnu.org/licenses/gpl-2.0.html](http://www.gnu.org/licenses/gpl-2.0.html).
