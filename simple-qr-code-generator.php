@@ -65,7 +65,7 @@ define( 'SIMPLEQRCO_PLUGIN_URL',	plugin_dir_url( SIMPLEQRCO_PLUGIN_FILE ) );
  * Load the main class for the core functionality
  */
 require_once SIMPLEQRCO_PLUGIN_DIR . 'core/class-simple-qr-code-generator.php';
-// Load the admin class for the core functionality
+require_once SIMPLEQRCO_PLUGIN_DIR . 'vendor/autoload.php';
 require_once SIMPLEQRCO_PLUGIN_DIR . 'admin/class-simple-qr-code-generator-admin.php';
 /**
  * The main function to load the only instance

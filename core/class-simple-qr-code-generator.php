@@ -123,7 +123,7 @@ if ( ! class_exists( 'Simple_Qr_Code_Generator' ) ) :
 		private function includes() {
 			require_once SIMPLEQRCO_PLUGIN_DIR . 'core/includes/classes/class-simple-qr-code-generator-helpers.php';
 			require_once SIMPLEQRCO_PLUGIN_DIR . 'core/includes/classes/class-simple-qr-code-generator-settings.php';
-
+            require_once SIMPLEQRCO_PLUGIN_DIR . 'core/includes/classes/class-simple-qr-code-generator-api.php';
 			require_once SIMPLEQRCO_PLUGIN_DIR . 'core/includes/classes/class-simple-qr-code-generator-run.php';
 		}
 
